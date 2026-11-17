@@ -8,7 +8,7 @@ export const genSchema = async () => {
     `${path.join(__dirname, "../src/schema")}/**/*.graphql`
   );
   const resolverFiles = loadFilesSync(
-    `${path.join(__dirname, "../src/schema")}/**/resolvers.?s`
+    `${path.join(__dirname, "../src/schema")}/resolvers.?s`
   );
   const modulesResolvers = mergeResolvers(resolverFiles);
 
