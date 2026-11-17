@@ -9,6 +9,12 @@ export type Addresses = {
   [key: string]: Address;
 };
 
-export type Args = {
+export type GetAddressInput = {
   username: string;
+};
+
+export type AddressInput = Address;
+
+export type CreateAddressInput = GetAddressInput & {
+  address: AddressInput;
 };
