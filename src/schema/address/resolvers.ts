@@ -1,8 +1,13 @@
 import { GetAddressInput, CreateAddressInput, Address } from './types';
 import { GraphQLError } from 'graphql';
 import { addressStore } from './store';
+import { ContextType } from '../../types';
 
-export const getAddress = async (_: any, args: GetAddressInput, context: any): Promise<Address> => {
+export const getAddress = async (
+  _: unknown,
+  args: GetAddressInput,
+  context: ContextType,
+): Promise<Address> => {
   context.logger.info('getAddress', 'Enter resolver');
   const address = await addressStore.get(args.username);
   if (address) {
@@ -10,10 +15,16 @@ export const getAddress = async (_: any, args: GetAddressInput, context: any): P
     return address;
   }
   context.logger.error('getAddress', 'No address found');
-  throw new GraphQLError('No address found in getAddress resolver', { extensions: { code: 'NOT_FOUND' } });
+  throw new GraphQLError('No address found in getAddress resolver', {
+    extensions: { code: 'NOT_FOUND' },
+  });
 };
 
-export const createAddress = async (_: any, args: CreateAddressInput, context: any): Promise<Address> => {
+export const createAddress = async (
+  _: unknown,
+  args: CreateAddressInput,
+  context: ContextType,
+): Promise<Address> => {
   if (!args.username.trim()) {
     throw new GraphQLError('Invalid username', {
       extensions: { code: 'BAD_USER_INPUT' },

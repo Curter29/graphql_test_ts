@@ -1,0 +1,32 @@
+sources:
+  - name: NASA
+    transforms:
+      - cache:
+          - field: Query.neoFeed
+            cacheKey: 'NASA:neoFeed:{argsHash}'
+            invalidate:
+              ttl: 300
+    handler:
+      jsonSchema:
+        endpoint: https://api.nasa.gov/neo/rest/v1
+        operations:
+          - type: Query
+            field: neoFeed
+            method: GET
+            path: /feed?start_date={args.startDate}&end_date={args.endDate}&api_key={env.NASA_API_KEY}
+            argTypeMap:
+              startDate:
+                type: string
+                nullable: false
+              endDate:
+                type: string
+                nullable: false
+            responseSchema:
+              title: NeoFeedResponse
+              type: object
+              properties:
+                element_count:
+                  type: integer
+                near_earth_objects:
+                  type: object
+                  additionalProperties: true

@@ -12,8 +12,11 @@ export const validateHeaders = (): Plugin<ContextType> => ({
   },
   onExecute({ args }) {
     const operation = getOperationAST(args.document, args.operationName);
-    if (args.contextValue.request.headers.get('client') === 'strata'
-      && operation && operation.operation !== OperationTypeNode.QUERY) {
+    if (
+      args.contextValue.request.headers.get('client') === 'strata'
+      && operation
+      && operation.operation !== OperationTypeNode.QUERY
+    ) {
       throw new GraphQLError('Client "strata" may only execute queries', {
         extensions: { code: 'FORBIDDEN', http: { status: 403 } },
       });
