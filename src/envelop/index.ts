@@ -5,8 +5,10 @@ import { useValidationCache } from '@envelop/validation-cache';
 import { buildHeaders } from './buildHeaders';
 import { useLogger } from './useLogger';
 import { ContextType } from '../types';
+import { validateHeaders } from './validateHeaders';
 
 const plugins: Plugin<ContextType>[] = [
+  validateHeaders() as Plugin<ContextType>,
   useEngine({ parse, validate, specifiedRules, execute, subscribe }) as Plugin<ContextType>,
   buildHeaders(),
   useLogger(),

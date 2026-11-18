@@ -6,8 +6,9 @@ import plugins from '../src/envelop/index';
 console.profile = jest.fn();
 const schema = genSchema();
 
-const yoga = createYoga({ schema, plugins });
+export const yoga = createYoga({ schema, plugins });
 
 export const executor = buildHTTPExecutor({
   fetch: yoga.fetch,
+  headers: { client: 'test' },
 });
