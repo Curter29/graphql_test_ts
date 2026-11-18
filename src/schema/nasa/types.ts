@@ -40,5 +40,7 @@ export type NasaNearEarthObject = {
 
 export type NasaNeoFeed = {
   element_count?: number | null;
-  near_earth_objects?: Record<string, NasaNearEarthObject[]> | null;
+  near_earth_objects?: {
+    [date: string]: NasaNearEarthObject[];
+  } | null;
 }

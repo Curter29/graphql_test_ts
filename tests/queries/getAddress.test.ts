@@ -56,7 +56,8 @@ describe('getAddress', () => {
       expect.objectContaining({
         errors: expect.arrayContaining([
           expect.objectContaining({
-            message: 'No address found in getAddress resolver',
+            message: 'No address found',
+            extensions: { code: 'NOT_FOUND' },
           }),
         ]),
       }),

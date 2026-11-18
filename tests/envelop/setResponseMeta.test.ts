@@ -35,7 +35,9 @@ describe('setResponseMeta unit', () => {
   });
 
   test('preserves resolver errors and adds the requestId from context', async () => {
-    const errors = [new GraphQLError('No address found in getAddress resolver')];
+    const errors = [new GraphQLError('No address found', {
+      extensions: { code: 'NOT_FOUND' },
+    })];
     const setResult = await applyMetadata({ data: { address: null }, errors }, 'request-456');
 
     expect(setResult).toHaveBeenCalledTimes(1);

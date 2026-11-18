@@ -15,7 +15,7 @@ export const getAddress = async (
     return address;
   }
   context.logger.error('getAddress', 'No address found');
-  throw new GraphQLError('No address found in getAddress resolver', {
+  throw new GraphQLError('No address found', {
     extensions: { code: 'NOT_FOUND' },
   });
 };

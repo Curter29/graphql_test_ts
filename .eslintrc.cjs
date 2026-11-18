@@ -13,5 +13,6 @@ module.exports = {
   ignorePatterns: ['.mesh/', 'dist/', 'tmp/'],
   rules: {
     '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+    '@typescript-eslint/consistent-indexed-object-style': ['error', 'index-signature'],
   },
 };
