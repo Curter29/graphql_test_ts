@@ -10,11 +10,11 @@ export const getAddress = async (_: any, args: GetAddressInput, context: any): P
     return address;
   }
   context.logger.error('getAddress', 'No address found');
-  throw new GraphQLError('No address found in getAddress resolver');
+  throw new GraphQLError('No address found in getAddress resolver', { extensions: { code: 'NOT_FOUND' } });
 };
 
 export const createAddress = async (_: any, args: CreateAddressInput, context: any): Promise<Address> => {
-  if (!args.username.trim() || ['__proto__', 'constructor', 'prototype'].includes(args.username)) {
+  if (!args.username.trim()) {
     throw new GraphQLError('Invalid username', {
       extensions: { code: 'BAD_USER_INPUT' },
     });

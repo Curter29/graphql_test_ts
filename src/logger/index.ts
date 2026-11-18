@@ -2,11 +2,16 @@ import winston from 'winston';
 
 export class Logger {
   private winston: any;
+
   requestId: string = '';
+  client: string | null = null;
+
   constructor() {
     this.winston = winston.createLogger({
       level: 'info',
-      format: winston.format.combine(winston.format.timestamp(), winston.format.json()),
+      format: winston.format.combine(
+        winston.format.timestamp(), winston.format.json()
+      ),
       transports: [new winston.transports.Console()],
     });
   }
@@ -15,15 +20,26 @@ export class Logger {
     this.requestId = requestId;
   }
 
-  info(message: string, meta?: object) {
-    this.winston.info(message, meta);
+  setClient(client: string | null) {
+    this.client = client;
   }
 
-  error(message: string, meta?: object) {
-    this.winston.error(message, meta);
+  headers() {
+    return {
+      request_id: this.requestId,
+      client: this.client
+    }
   }
 
-  warn(message: string, meta?: object) {
-    this.winston.warn(message, meta);
+  info(message: string, explain?: string) {
+    this.winston.info(message, { ...{ explain: explain }, ...this.headers() });
+  }
+
+  error(message: string, explain?: string) {
+    this.winston.error(message, { ...{ explain: explain }, ...this.headers() });
+  }
+
+  warn(message: string, explain?: string) {
+    this.winston.warn(message, { ...{ explain: explain }, ...this.headers() });
   }
 }
