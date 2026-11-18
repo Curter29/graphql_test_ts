@@ -81,7 +81,7 @@ describe('createAddress', () => {
   });
 
   test.each(['street', 'city', 'zipcode', 'state'] as const)(
-    'rejects a missing or null required field: %s', async (field) => {
+    'rejects a missing or null required field: %s', async field => {
       const before = await readFile(filename, 'utf8');
       for (const value of [undefined, null]) {
         expect(await executor({
@@ -103,21 +103,21 @@ describe('createAddress', () => {
   });
 
   test('rejects an address without non-empty fields', async () => {
-      const before = await readFile(filename, 'utf8');
-      expect(await executor({
-        document: mutation,
-        variables: { username: 'jack', address: { street: '', city: '  ', zipcode: '', state: '' } },
-      })).toMatchObject({
-        errors: [{
-          message: 'Provide at least one non-empty address field',
-          extensions: { code: 'BAD_USER_INPUT' },
-        }],
-      });
-      expect(await readFile(filename, 'utf8')).toBe(before);
+    const before = await readFile(filename, 'utf8');
+    expect(await executor({
+      document: mutation,
+      variables: { username: 'jack', address: { street: '', city: '  ', zipcode: '', state: '' } },
+    })).toMatchObject({
+      errors: [{
+        message: 'Provide at least one non-empty address field',
+        extensions: { code: 'BAD_USER_INPUT' },
+      }],
+    });
+    expect(await readFile(filename, 'utf8')).toBe(before);
   });
 
   test.each(['', '  '])(
-    'rejects invalid username: %j', async (username) => {
+    'rejects invalid username: %j', async username => {
       const before = await readFile(filename, 'utf8');
       expect(await executor({
         document: mutation,

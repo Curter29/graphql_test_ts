@@ -3,15 +3,13 @@ export type Address = {
   city: string;
   zipcode: string;
   state: string;
-};
+}
 
-export type Addresses = {
-  [key: string]: Address;
-};
+export type Addresses = Record<string, Address>;
 
 export type GetAddressInput = {
   username: string;
-};
+}
 
 export type AddressInput = Address;
 

@@ -1,16 +1,17 @@
 import winston from 'winston';
 
 export class Logger {
-  private winston: any;
+  private winston: winston.Logger;
 
-  requestId: string = '';
+  requestId = '';
   client: string | null = null;
 
   constructor() {
     this.winston = winston.createLogger({
       level: 'info',
       format: winston.format.combine(
-        winston.format.timestamp(), winston.format.json()
+        winston.format.timestamp(),
+        winston.format.json(),
       ),
       transports: [new winston.transports.Console()],
     });
@@ -27,8 +28,8 @@ export class Logger {
   headers() {
     return {
       request_id: this.requestId,
-      client: this.client
-    }
+      client: this.client,
+    };
   }
 
   info(message: string, explain?: string) {

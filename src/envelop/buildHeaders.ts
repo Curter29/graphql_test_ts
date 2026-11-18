@@ -7,7 +7,7 @@ export const buildHeaders = (): Plugin<ContextType> => {
     onEnveloped({ context, extendContext }) {
       extendContext({
         requestId: uuid(),
-        client: context!.request.headers.get('client')
+        client: context!.request.headers.get('client'),
       });
     },
   };

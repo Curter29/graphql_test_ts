@@ -3,3 +3,4 @@ package-lock.json
 CONTEXT_DUMP.md
 AGENTS.md
 tmp/
+.env
