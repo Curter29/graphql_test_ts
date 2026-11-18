@@ -2,3 +2,4 @@ node_modules/
 package-lock.json
 CONTEXT_DUMP.md
 AGENTS.md
+tmp/

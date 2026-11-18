@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "ts-node src/server.ts",
     "lint": "eslint . --ext .ts",
-    "test": "DISABLE_DYNAMO=true npx jest --config=./jest.config.ts  --watchAll=false --ci"
+    "test": "bash -o pipefail -c 'mkdir -p tmp && DISABLE_DYNAMO=true npx jest --config=./jest.config.ts --watchAll=false --ci \"$@\" 2>&1 | tee \"tmp/tests-$(date -u +%Y%m%dT%H%M%SZ).log\"' --"
   },
   "dependencies": {
     "@envelop/core": "^5.3.0",

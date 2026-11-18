@@ -6,12 +6,14 @@ import { buildHeaders } from './buildHeaders';
 import { useLogger } from './useLogger';
 import { ContextType } from '../types';
 import { validateHeaders } from './validateHeaders';
+import { setResponseMeta } from './setResponseMeta';
 
 const plugins: Plugin<ContextType>[] = [
   validateHeaders() as Plugin<ContextType>,
   useEngine({ parse, validate, specifiedRules, execute, subscribe }) as Plugin<ContextType>,
-  buildHeaders(),
+  buildHeaders() as Plugin<ContextType>,
   useLogger(),
+  setResponseMeta(),
   useParserCache() as Plugin<ContextType>,
   useValidationCache() as Plugin<ContextType>,
 ];
