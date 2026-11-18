@@ -47,9 +47,20 @@ Integrate the [NASA NEO Feed API](https://api.nasa.gov/neo/rest/v1/feed?start_da
 ### Things to think about
 
 - How does the `json-schema` handler infer a GraphQL schema from a sample JSON response? What configuration does it need?
+
+> Set `responseSample` in `.meshrc.yml` to the path of a sample JSON file. Mesh infers types from its structure. In this implementation, we use an explicit `responseSchema` because NASA groups objects under changing date keys.
+
 - How do you apply field-level filtering or renaming between the Mesh-generated schema and the schema you expose to consumers?
+
+> Use a mapper to select and rename fields from the Mesh SDK response. Define only the intended fields in the public GraphQL schema.
+
 - Where is the right place to perform the date-keyed flatten so it stays out of the resolver logic?
+
+> In a separate mapper function called by the resolver.
+
 - How would you cache the NASA response to avoid hammering the rate-limited `DEMO_KEY`?
+
+> Use Mesh Cache Transform in `.meshrc.yml` to cache `Query.neoFeed` by its arguments, with a TTL of 300 seconds.
 
 ### Resources
 

@@ -60,9 +60,20 @@ You're tasked with 7 tickets this sprint. 5 of the tickets are enhancements, one
 ### Things to think about
 
 - How can you ensure graph schema types and typescript types match?
+
+> Generate TypeScript types from the GraphQL schema. Currently, we maintain these types manually.
+
 - How can you return a consistent user friendly error message for all resolvers?
+
+> Use a consistent `GraphQLError` format with a clear message and an error code in `extensions`. A shared helper, such as `fail()`, can be reused by all resolvers or added to context through Envelop.
+
 - How would you nest this address object inside a larger schema object containing other elements specific to a user?
+
+> A common approach is to add an `address` field to a `User` type and resolve the address for that user.
+
 - How can you make sure you are not duplicating an implementation in every resolver? Tip: read about envelop in the resources below
+
+> Use Envelop plugins for shared behavior, such as header validation and logging. Add shared functions or request-specific values to context.
 
 ### Resources
 
