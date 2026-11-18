@@ -46,20 +46,20 @@ export type HTTPMethod =
   | 'PATCH';
 
   export type QuerySdk = {
-      
+
   neoFeed: InContextSdkMethod<Query['neoFeed'], QueryneoFeedArgs, BaseMeshContext>
   };
 
   export type MutationSdk = {
-    
+
   };
 
   export type SubscriptionSdk = {
-    
+
   };
 
   export type Context = {
       ["NASA"]: { Query: QuerySdk, Mutation: MutationSdk, Subscription: SubscriptionSdk },
-      
+
     };
 }
